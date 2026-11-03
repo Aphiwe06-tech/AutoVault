@@ -167,6 +167,7 @@ public class MainWindow extends JFrame {
                 job.addExcludedExtension(ext);
             }
             manager.addJob(job);
+            manager.startAuto(job.getJobId());
             setStatus("Added job '" + job.getName() + "'.");
             refreshTable();
         } catch (IllegalArgumentException ex) {
@@ -243,7 +244,9 @@ public class MainWindow extends JFrame {
         if (job == null) return;
         if (JOptionPane.showConfirmDialog(this, "Remove job '" + job.getName() + "'?",
                 "Confirm", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            manager.stopAuto(job.getJobId());
             manager.removeJob(job.getJobId());
+            
             setStatus("Job removed.");
             refreshTable();
         }
