@@ -1,15 +1,14 @@
+package ui;
+
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import java.nio.file.Files;
-import java.nio.charset.StandardCharsets;
 
 import util.BackupLogger;
 import util.LogEntry;
-
 
 public class AutoVaultRole6Prototype extends JFrame {
 
@@ -23,7 +22,7 @@ public class AutoVaultRole6Prototype extends JFrame {
     public AutoVaultRole6Prototype() {
         setTitle("AutoVault - Role 6: QA and Logging");
         setSize(800, 550);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
 
@@ -78,9 +77,7 @@ public class AutoVaultRole6Prototype extends JFrame {
         logsButton.addActionListener(e -> showLogs());
         testButton.addActionListener(e -> runQATests());
         exportButton.addActionListener(e -> exportLogs());
-        clearButton.addActionListener(
-                e -> displayArea.setText("")
-        );
+        clearButton.addActionListener(e -> displayArea.setText(""));
 
         // Record application startup
         logger.log("INFO", "AutoVault prototype started");
@@ -95,12 +92,10 @@ public class AutoVaultRole6Prototype extends JFrame {
                 + "          AUTOVAULT DASHBOARD\n"
                 + "====================================\n\n"
                 + "Welcome to AutoVault!\n\n"
-                
                 + "Available functions:\n"
                 + "1. View activity logs\n"
                 + "2. Run quality assurance tests\n"
                 + "3. Export activity logs\n\n"
-                
         );
 
         logger.log("INFO", "Dashboard opened");
@@ -126,185 +121,176 @@ public class AutoVaultRole6Prototype extends JFrame {
     }
 
     // Runs basic tests on the logging system
-    
-private void runQATests() {
-    displayArea.setText("===== AUTOVAULT QA TESTS =====\n\n");
+    private void runQATests() {
+        displayArea.setText("===== AUTOVAULT QA TESTS =====\n\n");
 
-    int passed = 0;
-    int failed = 0;
+        int passed = 0;
+        int failed = 0;
 
-    // TEST 1: Check whether the logger records a new event.
-    int before = logger.getEntries().size();
+        // TEST 1: Check whether the logger records a new event.
+        int before = logger.getEntries().size();
 
-    logger.log("TEST", "QA logger test");
+        logger.log("TEST", "QA logger test");
 
-    int after = logger.getEntries().size();
+        int after = logger.getEntries().size();
 
-    if (after == before + 1) {
-        displayArea.append("PASS: Logger records events.\n");
-        passed++;
-    } else {
-        displayArea.append("FAIL: Logger did not record an event.\n");
-        failed++;
-    }
-
-    // TEST 2: Check whether log entries can be retrieved.
-    if (!logger.getEntries().isEmpty()) {
-        displayArea.append("PASS: Log entries can be retrieved.\n");
-        passed++;
-    } else {
-        displayArea.append("FAIL: No log entries were retrieved.\n");
-        failed++;
-    }
-
-    // TEST 3: Check whether the latest log entry has all required fields.
-    LogEntry latest = logger.getEntries()
-            .get(logger.getEntries().size() - 1);
-
-    if (latest.getTimestamp() != null
-            && !latest.getTimestamp().isEmpty()
-            && latest.getLevel() != null
-            && !latest.getLevel().isEmpty()
-            && latest.getMessage() != null
-            && !latest.getMessage().isEmpty()) {
-
-        displayArea.append(
-                "PASS: Log entry has timestamp, level and message.\n");
-        passed++;
-    } else {
-        displayArea.append(
-                "FAIL: Log entry is missing required information.\n");
-        failed++;
-    }
-
-    // TEST 4: Check whether log entries can be exported.
-    try {
-        File exportFile = File.createTempFile(
-                "autovault-test-", ".log");
-
-        // Remove the temporary file when Java exits.
-        exportFile.deleteOnExit();
-
-        // Export the current log entries.
-        logger.exportTo(exportFile);
-
-        // Read the exported file and check its contents.
-        String exportedContent = new String(
-                java.nio.file.Files.readAllBytes(exportFile.toPath()),
-                java.nio.charset.StandardCharsets.UTF_8);
-
-        if (exportedContent.contains("QA logger test")) {
-            displayArea.append(
-                    "PASS: Logs export correctly to a file.\n");
+        if (after == before + 1) {
+            displayArea.append("PASS: Logger records events.\n");
             passed++;
         } else {
-            displayArea.append(
-                    "FAIL: Exported file does not contain the test log.\n");
+            displayArea.append("FAIL: Logger did not record an event.\n");
             failed++;
         }
 
-    } catch (IOException e) {
-        displayArea.append(
-                "FAIL: Log export failed: " + e.getMessage() + "\n");
-        failed++;
-    }
+        // TEST 2: Check whether log entries can be retrieved.
+        if (!logger.getEntries().isEmpty()) {
+            displayArea.append("PASS: Log entries can be retrieved.\n");
+            passed++;
+        } else {
+            displayArea.append("FAIL: No log entries were retrieved.\n");
+            failed++;
+        }
 
-    // TEST 5: Check whether log entries survive a restart.
-    File persistenceFile = null;
+        // TEST 3: Check whether the latest log entry has all required fields.
+        LogEntry latest = logger.getEntries()
+                .get(logger.getEntries().size() - 1);
 
-    try {
-        persistenceFile = File.createTempFile(
-                "autovault-persistence-", ".log");
+        if (latest.getTimestamp() != null
+                && !latest.getTimestamp().isEmpty()
+                && latest.getLevel() != null
+                && !latest.getLevel().isEmpty()
+                && latest.getMessage() != null
+                && !latest.getMessage().isEmpty()) {
 
-        persistenceFile.deleteOnExit();
+            displayArea.append(
+                    "PASS: Log entry has timestamp, level and message.\n");
+            passed++;
+        } else {
+            displayArea.append(
+                    "FAIL: Log entry is missing required information.\n");
+            failed++;
+        }
 
-        // First logger writes an entry to the temporary file.
-        BackupLogger firstLogger =
-                new BackupLogger(persistenceFile);
+        // TEST 4: Check whether log entries can be exported.
+        try {
+            File exportFile = File.createTempFile(
+                    "autovault-test-", ".log");
 
-        firstLogger.log(
-                "TEST", "Persistence check entry");
+            exportFile.deleteOnExit();
 
-        // A new logger simulates starting again.
-        BackupLogger restartedLogger =
-                new BackupLogger(persistenceFile);
+            logger.exportTo(exportFile);
 
-        boolean found = false;
+           String exportedContent = new String(
+        java.nio.file.Files.readAllBytes(exportFile.toPath()),
+        java.nio.charset.StandardCharsets.UTF_8);
 
-        for (LogEntry entry : restartedLogger.getEntries()) {
-            if ("Persistence check entry".equals(
-                    entry.getMessage())) {
-                found = true;
-                break;
+            if (exportedContent.contains("QA logger test")) {
+                displayArea.append(
+                        "PASS: Logs export correctly to a file.\n");
+                passed++;
+            } else {
+                displayArea.append(
+                        "FAIL: Exported file does not contain the test log.\n");
+                failed++;
             }
-        }
 
-        if (found) {
+        } catch (IOException e) {
             displayArea.append(
-                    "PASS: Log entries survive a logger restart.\n");
-            passed++;
-        } else {
-            displayArea.append(
-                    "FAIL: Previous log entry was not reloaded.\n");
+                    "FAIL: Log export failed: " + e.getMessage() + "\n");
             failed++;
         }
 
-    } catch (IOException e) {
-        displayArea.append(
-                "FAIL: Persistence test error: "
-                + e.getMessage() + "\n");
-        failed++;
-    }
+        // TEST 5: Check whether log entries survive a restart.
+        File persistenceFile = null;
 
-    // TEST 6: Check how the logger handles a write failure.
-    File blockedPath = null;
+        try {
+            persistenceFile = File.createTempFile(
+                    "autovault-persistence-", ".log");
 
-    try {
-        // Create a temporary file, then replace it with a directory.
-        blockedPath = File.createTempFile(
-                "autovault-error-test-", ".tmp");
+            persistenceFile.deleteOnExit();
 
-        if (!blockedPath.delete() || !blockedPath.mkdir()) {
-            throw new IOException(
-                    "Could not prepare the error test location.");
-        }
+            BackupLogger firstLogger =
+                    new BackupLogger(persistenceFile);
 
-        blockedPath.deleteOnExit();
+            firstLogger.log(
+                    "TEST", "Persistence check entry");
 
-        // A directory cannot be used as a normal log file.
-        BackupLogger errorLogger =
-                new BackupLogger(blockedPath);
+            BackupLogger restartedLogger =
+                    new BackupLogger(persistenceFile);
 
-        errorLogger.log(
-                "TEST", "This entry should not be saved");
+            boolean found = false;
 
-        // The logger should not store an entry when writing fails.
-        if (errorLogger.getEntries().isEmpty()) {
+            for (LogEntry entry : restartedLogger.getEntries()) {
+                if ("Persistence check entry".equals(
+                        entry.getMessage())) {
+                    found = true;
+                    break;
+                }
+            }
+
+            if (found) {
+                displayArea.append(
+                        "PASS: Log entries survive a logger restart.\n");
+                passed++;
+            } else {
+                displayArea.append(
+                        "FAIL: Previous log entry was not reloaded.\n");
+                failed++;
+            }
+
+        } catch (IOException e) {
             displayArea.append(
-                    "PASS: Logger handles write failures safely.\n");
-            passed++;
-        } else {
-            displayArea.append(
-                    "FAIL: Logger stored an entry despite write failure.\n");
+                    "FAIL: Persistence test error: "
+                    + e.getMessage() + "\n");
             failed++;
         }
 
-    } catch (IOException e) {
+        // TEST 6: Check how the logger handles a write failure.
+        File blockedPath = null;
+
+        try {
+            blockedPath = File.createTempFile(
+                    "autovault-error-test-", ".tmp");
+
+            if (!blockedPath.delete() || !blockedPath.mkdir()) {
+                throw new IOException(
+                        "Could not prepare the error test location.");
+            }
+
+            blockedPath.deleteOnExit();
+
+            BackupLogger errorLogger =
+                    new BackupLogger(blockedPath);
+
+            errorLogger.log(
+                    "TEST", "This entry should not be saved");
+
+            if (errorLogger.getEntries().isEmpty()) {
+                displayArea.append(
+                        "PASS: Logger handles write failures safely.\n");
+                passed++;
+            } else {
+                displayArea.append(
+                        "FAIL: Logger stored an entry despite write failure.\n");
+                failed++;
+            }
+
+        } catch (IOException e) {
+            displayArea.append(
+                    "FAIL: Could not prepare error test: "
+                    + e.getMessage() + "\n");
+            failed++;
+        }
+
+        // Display the test results.
+        displayArea.append("\n===== TEST SUMMARY =====\n");
+        displayArea.append("Passed: " + passed + "\n");
+        displayArea.append("Failed: " + failed + "\n");
+
         displayArea.append(
-                "FAIL: Could not prepare error test: "
-                + e.getMessage() + "\n");
-        failed++;
+                "Pending integration: backup, restore, change detection "
+                + "and retention tests.\n");
     }
-
-    // Display the test results.
-    displayArea.append("\n===== TEST SUMMARY =====\n");
-    displayArea.append("Passed: " + passed + "\n");
-    displayArea.append("Failed: " + failed + "\n");
-
-    displayArea.append(
-            "Pending integration: backup, restore, change detection "
-            + "and retention tests.\n");
-}
 
     // Exports the logs to a file selected by the user
     private void exportLogs() {
@@ -357,3 +343,4 @@ private void runQATests() {
         });
     }
 }
+
