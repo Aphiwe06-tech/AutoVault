@@ -77,6 +77,12 @@ public class MainWindow extends JFrame {
         buttons.add(button("Versions / Restore", e -> showVersions()));
         buttons.add(button("Remove job", e -> removeJob()));
         buttons.add(button("Save", e -> save()));
+        buttons.add(button("QA / Logging", e -> {
+    AutoVaultRole6Prototype qaWindow =
+            new AutoVaultRole6Prototype();
+
+    qaWindow.setVisible(true);
+}));
 
         add(buttons, BorderLayout.NORTH);
         add(new JScrollPane(jobTable), BorderLayout.CENTER);
