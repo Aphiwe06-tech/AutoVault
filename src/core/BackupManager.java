@@ -1,4 +1,3 @@
-
 package core;
 
 import java.io.File;
@@ -18,19 +17,23 @@ import util.BackupLogger;
 
 public class BackupManager {
 
+    // Stores all backup jobs.
     private Map<String, BackupJob> jobs = new HashMap<>();
 
+    // Controls automatic backups.
     private BackupScheduler scheduler;
     private Thread schedulerThread;
 
-    // Records backup, restore, scheduling and error events.
+    // Records application activities.
     private final BackupLogger logger = new BackupLogger();
 
-    // Add a new backup job.
+    // Add a backup job.
     public void addJob(BackupJob job) {
+
         jobs.put(job.getJobId(), job);
 
         logger.info("Backup job added: " + job.getName());
+
         saveAll();
     }
 
@@ -40,52 +43,60 @@ public class BackupManager {
         BackupJob job = jobs.get(jobId);
 
         if (job != null) {
+
             stopAuto(jobId);
+
             jobs.remove(jobId);
 
             logger.info("Backup job removed: " + job.getName());
+
             saveAll();
         }
     }
 
-    // Return all registered backup jobs.
+    // Return all registered jobs.
     public List<BackupJob> getJobs() {
+
         return new ArrayList<>(jobs.values());
     }
 
-    // Perform a backup and record its result.
+    // Perform a backup.
     public BackupVersion runBackup(String jobId) {
 
         BackupJob job = jobs.get(jobId);
 
         if (job == null) {
-            logger.warn("Backup requested for unknown job: " + jobId);
+
+            logger.warn("Unknown backup job: " + jobId);
+
             System.out.println("Job not found: " + jobId);
+
             return null;
         }
 
         try {
 
-            // Check that the source folder still exists.
+            // Check that the source folder exists.
             if (!job.getSourceDir().isDirectory()) {
 
-                IOException error = new IOException(
+                IOException exception = new IOException(
                         "Source folder does not exist: "
                         + job.getSourceDir().getAbsolutePath()
                 );
 
                 logger.error(
                         "Backup failed for job: " + job.getName(),
-                        error
+                        exception
                 );
 
-                System.out.println(error.getMessage());
+                System.out.println(exception.getMessage());
+
                 return null;
             }
 
             BackupEngine engine = new BackupEngine();
 
-            // Skip the backup if nothing has changed.
+            // Skip unchanged folders.
             if (!engine.hasChanges(job)) {
 
                 logger.info(
@@ -95,8 +106,7 @@ public class BackupManager {
                 );
 
                 System.out.println(
-                        "No changes in " + job.getName()
-                        + " since the last backup. Nothing to do."
+                        "No changes since the last backup."
                 );
 
                 return null;
@@ -112,17 +122,15 @@ public class BackupManager {
                         new IOException("Could not create backup version")
                 );
 
-                System.out.println(
-                        "Backup failed for job: " + jobId
-                );
-
                 return null;
             }
 
+            // Add the new version to the job.
             job.addVersion(version);
 
-            // Keep the five most recent backup versions.
+            // Keep the five most recent versions.
             RetentionPolicy policy = new RetentionPolicy(5);
+
             int removed = policy.enforce(job);
 
             logger.info(
@@ -133,6 +141,7 @@ public class BackupManager {
             );
 
             if (removed > 0) {
+
                 logger.info(
                         "Retention removed "
                         + removed
@@ -141,20 +150,20 @@ public class BackupManager {
                 );
             }
 
-            // Preserve updated version information.
+            // Save the updated version history.
             saveAll();
 
             return version;
 
-        } catch (Exception e) {
+        } catch (Exception exception) {
 
             logger.error(
                     "Unexpected backup failure: " + job.getName(),
-                    e
+                    exception
             );
 
             System.out.println(
-                    "Backup failed: " + e.getMessage()
+                    "Backup failed: " + exception.getMessage()
             );
 
             return null;
@@ -167,25 +176,42 @@ public class BackupManager {
         BackupJob job = jobs.get(jobId);
 
         if (job == null) {
+
             logger.warn("Versions requested for unknown job: " + jobId);
+
             System.out.println("Job not found: " + jobId);
+
             return null;
         }
 
-        VersionSorter sorter = new VersionSorter();
-
-        return sorter.mergeSort(job.getVersions());
+        return VersionSorter.mergeSort(job.getVersions());
     }
 
     // Restore a selected backup version.
-    public void restore(String jobId, String versionId, File target) {
+    // Returns true on success and false on failure.
+    public boolean restore(
+            String jobId,
+            String versionId,
+            File target) {
 
         BackupJob job = jobs.get(jobId);
 
         if (job == null) {
+
             logger.warn("Restore requested for unknown job: " + jobId);
+
             System.out.println("Job not found: " + jobId);
-            return;
+
+            return false;
+        }
+
+        if (target == null) {
+
+            logger.warn("Restore destination was not selected.");
+
+            System.out.println("Restore destination is required.");
+
+            return false;
         }
 
         for (BackupVersion version : job.getVersions()) {
@@ -210,19 +236,22 @@ public class BackupManager {
 
                     System.out.println("Restore finished.");
 
-                } catch (Exception e) {
+                    return true;
+
+                } catch (Exception exception) {
 
                     logger.error(
                             "Restore failed for job: " + job.getName(),
-                            e
+                            exception
                     );
 
                     System.out.println(
-                            "Restore failed: " + e.getMessage()
+                            "Restore failed: "
+                            + exception.getMessage()
                     );
-                }
 
-                return;
+                    return false;
+                }
             }
         }
 
@@ -231,32 +260,41 @@ public class BackupManager {
         );
 
         System.out.println("Version not found: " + versionId);
+
+        return false;
     }
 
-    // Start scheduled backups for a job.
+    // Start automatic backups for the selected job.
     public void startAuto(String jobId) {
 
         BackupJob job = jobs.get(jobId);
 
         if (job == null) {
+
             logger.warn("Cannot schedule unknown job: " + jobId);
+
             System.out.println("Job not found: " + jobId);
+
             return;
         }
 
         if (scheduler == null) {
+
             scheduler = new BackupScheduler(this);
         }
 
         scheduler.schedule(job);
 
+        // Start the scheduler thread only once.
         if (schedulerThread == null) {
 
             schedulerThread = new Thread(
-                    scheduler, "AutoVault-Scheduler"
+                    scheduler,
+                    "AutoVault-Scheduler"
             );
 
             schedulerThread.setDaemon(true);
+
             schedulerThread.start();
         }
 
@@ -269,10 +307,11 @@ public class BackupManager {
         );
     }
 
-    // Stop scheduled backups for a job.
+    // Stop automatic backups for one job.
     public void stopAuto(String jobId) {
 
         if (scheduler != null) {
+
             scheduler.cancel(jobId);
 
             logger.info(
@@ -285,6 +324,7 @@ public class BackupManager {
     public void shutdown() {
 
         if (scheduler != null) {
+
             scheduler.stop();
         }
 
@@ -293,49 +333,60 @@ public class BackupManager {
         logger.info("AutoVault shutdown completed");
     }
 
-    // Save backup jobs and their version history.
+    // Save all jobs and their backup versions.
     public void saveAll() {
 
-        try (ObjectOutputStream out =
+        try (ObjectOutputStream output =
                 new ObjectOutputStream(
                         new FileOutputStream("jobs.dat"))) {
 
-            out.writeObject(jobs);
+            output.writeObject(jobs);
 
-        } catch (Exception e) {
+        } catch (Exception exception) {
 
-            logger.error("Could not save backup jobs", e);
+            logger.error(
+                    "Could not save backup jobs",
+                    exception
+            );
 
             System.out.println(
-                    "Could not save: " + e.getMessage()
+                    "Could not save: "
+                    + exception.getMessage()
             );
         }
     }
 
-    // Load saved backup jobs.
+    // Load previously saved jobs.
     @SuppressWarnings("unchecked")
     public void loadAll() {
 
         File file = new File("jobs.dat");
 
         if (!file.exists()) {
+
             return;
         }
 
-        try (ObjectInputStream in =
+        try (ObjectInputStream input =
                 new ObjectInputStream(
                         new FileInputStream(file))) {
 
-            jobs = (Map<String, BackupJob>) in.readObject();
+            jobs = (Map<String, BackupJob>) input.readObject();
 
-            logger.info("Saved backup jobs loaded successfully");
+            logger.info(
+                    "Saved backup jobs loaded successfully"
+            );
 
-        } catch (Exception e) {
+        } catch (Exception exception) {
 
-            logger.error("Could not load saved backup jobs", e);
+            logger.error(
+                    "Could not load saved backup jobs",
+                    exception
+            );
 
             System.out.println(
-                    "Could not load: " + e.getMessage()
+                    "Could not load: "
+                    + exception.getMessage()
             );
         }
     }
