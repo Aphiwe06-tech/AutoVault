@@ -8,8 +8,8 @@ import model.BackupJob;
 import model.BackupVersion;
 
 /**
- * The console menu of AutoVault.
- * The user types choices here instead of clicking a window.
+  The console menu of AutoVault.
+  The user types choices here instead of clicking a window.
  */
 public class CliMenu {
     private BackupManager manager;
