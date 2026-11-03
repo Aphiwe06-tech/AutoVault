@@ -1,11 +1,9 @@
-
-
 package ui;
 
 import core.BackupManager;
 import model.BackupJob;
 import model.BackupVersion;
-
+import core.BackupEngine;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
@@ -186,29 +184,76 @@ public class MainWindow extends JFrame {
         if (f != null) target.setText(f.getAbsolutePath());
     }
 
+    
     private void backupNow() {
-        BackupJob job = requireSelection();
-        if (job == null) return;
-        setStatus("Backing up '" + job.getName() + "'...");
-        new SwingWorker<BackupVersion, Void>() {
-            @Override protected BackupVersion doInBackground() {
-                return manager.runBackup(job.getJobId());
-            }
-            @Override protected void done() {
-                try {
-                    BackupVersion made = get();
-                    if (made == null) {
-                        setStatus("No changes since the last backup. Nothing to do.");
-                    } else {
-                        setStatus("Backup complete: " + made);
-                    }
-                } catch (Exception ex) {
-                    error("Backup failed", rootMessage(ex));
-                }
-                refreshTable();
-            }
-        }.execute();
+
+    BackupJob job = requireSelection();
+
+    if (job == null) {
+        return;
     }
+
+    setStatus("Backing up '" + job.getName() + "'...");
+
+    new SwingWorker<BackupVersion, Void>() {
+
+        @Override
+        protected BackupVersion doInBackground() {
+
+            return manager.runBackup(job.getJobId());
+        }
+
+        @Override
+        protected void done() {
+
+            try {
+
+                BackupVersion version = get();
+
+                if (version != null) {
+
+                    // A new backup was successfully created.
+                    setStatus(
+                            "Backup completed successfully: "
+                            + version.getVersionId()
+                    );
+
+                } else if (!job.getSourceDir().isDirectory()) {
+
+                    // The source folder is missing.
+                    error(
+                            "Backup failed",
+                            "The source folder no longer exists."
+                    );
+
+                } else if (new BackupEngine().hasChanges(job)) {
+
+                    // Changes exist, but the backup failed.
+                    error(
+                            "Backup failed",
+                            "The backup could not be completed. "
+                            + "Check AutoVault.log for details."
+                    );
+
+                } else {
+
+                    // No backup was necessary.
+                    setStatus(
+                            "No changes since the last backup. "
+                            + "Nothing to do."
+                    );
+                }
+
+            } catch (Exception ex) {
+
+                error("Backup failed", rootMessage(ex));
+            }
+
+            refreshTable();
+        }
+
+    }.execute();
+}
 
     private void showVersions() {
         BackupJob job = requireSelection();
@@ -229,20 +274,50 @@ public class MainWindow extends JFrame {
         if (chosen == null || target == null) return;
 
         setStatus("Restoring...");
-        new SwingWorker<Void, Void>() {
-            @Override protected Void doInBackground() {
-                manager.restore(job.getJobId(), chosen.getVersionId(), target);
-                return null;
+        new SwingWorker<Boolean, Void>() {
+
+    @Override
+    protected Boolean doInBackground() {
+
+        return manager.restore(
+                job.getJobId(),
+                chosen.getVersionId(),
+                target
+        );
+    }
+
+    @Override
+    protected void done() {
+
+        try {
+
+            boolean successful = get();
+
+            if (successful) {
+
+                setStatus(
+                        "Restored successfully to "
+                        + target.getAbsolutePath()
+                );
+
+            } else {
+
+                error(
+                        "Restore failed",
+                        "The selected backup could not be restored. "
+                        + "Check AutoVault.log for details."
+                );
             }
-            @Override protected void done() {
-                try {
-                    get();
-                    setStatus("Restored to " + target.getAbsolutePath());
-                } catch (Exception ex) {
-                    error("Restore failed", rootMessage(ex));
-                }
-            }
-        }.execute();
+
+        } catch (Exception ex) {
+
+            error("Restore failed", rootMessage(ex));
+        }
+    }
+
+}.execute();
+
+        
     }
 
     private void removeJob() {
