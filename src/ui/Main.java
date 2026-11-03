@@ -1,23 +1,32 @@
+
 package ui;
 
 import core.BackupManager;
+import model.BackupJob;
+import javax.swing.SwingUtilities;
 
 public class Main {
 
     public static void main(String[] args) {
-        BackupManager manager = new BackupManager();
-        manager.loadAll();
 
-        // Creates the window (GUI)
-        MainWindow window = new MainWindow(manager);
-        window.show();
+        SwingUtilities.invokeLater(() -> {
 
-        // Creates the console menu; this runs until the user chooses Exit
-        // (Exit also saves the jobs and stops automatic backups)
-        CliMenu menu = new CliMenu(manager);
-        menu.start();
+            // Create the backup manager.
+            BackupManager manager = new BackupManager();
 
-        // Close the window and end the program
-        System.exit(0);
+            // Load previously saved backup jobs.
+            manager.loadAll();
+
+            // Automatically restart enabled backup jobs.
+            for (BackupJob job : manager.getJobs()) {
+                if (job.isEnabled()) {
+                    manager.startAuto(job.getJobId());
+                }
+            }
+
+            // Open the main AutoVault application.
+            MainWindow window = new MainWindow(manager);
+            window.show();
+        });
     }
 }
