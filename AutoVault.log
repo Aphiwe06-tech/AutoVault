@@ -1,0 +1,231 @@
+2026-11-01 23:34:37 [INFO] AutoVault prototype started
+2026-11-01 23:34:37 [INFO] Dashboard opened
+2026-11-01 23:34:59 [TEST] QA logger test
+2026-11-01 23:35:16 [INFO] Dashboard opened
+2026-11-01 23:36:16 [INFO] AutoVault prototype started
+2026-11-01 23:36:16 [INFO] Dashboard opened
+2026-11-02 02:25:41 [INFO] AutoVault prototype started
+2026-11-02 02:25:41 [INFO] Dashboard opened
+2026-11-03 21:07:50 [INFO] Saved backup jobs loaded successfully
+2026-11-03 21:07:50 [INFO] Automatic backup started: TestJob | Interval: 1 minute(s)
+2026-11-03 21:08:50 [INFO] Backup skipped for TestJob: no changes detected
+2026-11-03 21:09:50 [INFO] Backup skipped for TestJob: no changes detected
+2026-11-03 21:26:02 [INFO] Saved backup jobs loaded successfully
+2026-11-03 21:26:02 [INFO] Automatic backup started: TestJob | Interval: 1 minute(s)
+2026-11-03 21:27:02 [INFO] Backup skipped for TestJob: no changes detected
+2026-11-03 21:27:03 [INFO] Backup job added: testauto
+2026-11-03 21:27:03 [INFO] Automatic backup started: testauto | Interval: 1 minute(s)
+2026-11-03 21:28:02 [INFO] Backup skipped for TestJob: no changes detected
+2026-11-03 21:28:03 [INFO] Backup successful: testauto | Version: 20261103_212803_765
+2026-11-03 21:29:02 [INFO] Backup skipped for TestJob: no changes detected
+2026-11-03 21:29:03 [INFO] Backup skipped for testauto: no changes detected
+2026-11-03 21:34:07 [INFO] Saved backup jobs loaded successfully
+2026-11-03 21:34:07 [INFO] Automatic backup started: TestJob | Interval: 1 minute(s)
+2026-11-03 21:34:07 [INFO] Automatic backup started: testauto | Interval: 1 minute(s)
+2026-11-03 21:34:30 [INFO] Backup skipped for testauto: no changes detected
+2026-11-03 21:35:07 [INFO] Backup skipped for TestJob: no changes detected
+2026-11-03 21:35:07 [INFO] Backup skipped for testauto: no changes detected
+2026-11-03 21:35:26 [INFO] Backup skipped for testauto: no changes detected
+2026-11-03 21:35:33 [INFO] Backup skipped for testauto: no changes detected
+2026-11-03 21:36:07 [INFO] Backup skipped for TestJob: no changes detected
+2026-11-03 21:36:07 [INFO] Backup skipped for testauto: no changes detected
+2026-11-03 21:37:07 [INFO] Backup skipped for TestJob: no changes detected
+2026-11-03 21:37:07 [INFO] Backup skipped for testauto: no changes detected
+2026-11-03 21:37:18 [INFO] Backup successful: testauto | Version: 20261103_213718_169
+2026-11-03 21:38:07 [INFO] Backup skipped for TestJob: no changes detected
+2026-11-03 21:38:07 [INFO] Backup skipped for testauto: no changes detected
+2026-11-03 21:39:07 [INFO] Backup skipped for TestJob: no changes detected
+2026-11-03 21:39:07 [INFO] Backup skipped for testauto: no changes detected
+2026-11-03 21:40:03 [INFO] Backup job added: TestJob
+2026-11-03 21:40:03 [INFO] Backup successful: TestJob | Version: 20261103_214003_562
+2026-11-03 21:40:04 [INFO] Backup successful: TestJob | Version: 20261103_214004_685
+2026-11-03 21:40:04 [INFO] Restore successful: TestJob | Version: 20261103_214003_562 | Destination: C:\Users\simli\AppData\Local\Temp\autovault-tests-1793734803278\normal\restored
+2026-11-03 21:40:05 [INFO] Backup successful: TestJob | Version: 20261103_214005_830
+2026-11-03 21:40:06 [INFO] Backup successful: TestJob | Version: 20261103_214006_956
+2026-11-03 21:40:08 [INFO] Backup successful: TestJob | Version: 20261103_214008_089
+2026-11-03 21:40:08 [INFO] Backup skipped for TestJob: no changes detected
+2026-11-03 21:40:08 [INFO] Backup skipped for testauto: no changes detected
+2026-11-03 21:40:09 [INFO] Backup successful: TestJob | Version: 20261103_214009_211
+2026-11-03 21:40:09 [INFO] Retention removed 1 old version(s) for TestJob
+2026-11-03 21:40:10 [INFO] Backup successful: TestJob | Version: 20261103_214010_342
+2026-11-03 21:40:10 [INFO] Retention removed 1 old version(s) for TestJob
+2026-11-03 21:40:11 [INFO] Backup successful: TestJob | Version: 20261103_214011_465
+2026-11-03 21:40:11 [INFO] Retention removed 1 old version(s) for TestJob
+2026-11-03 21:40:11 [INFO] Saved backup jobs loaded successfully
+2026-11-03 21:40:12 [INFO] Backup successful: TestJob | Version: 20261103_214012_650
+2026-11-03 21:40:12 [INFO] Retention removed 1 old version(s) for TestJob
+2026-11-03 21:40:12 [INFO] Backup job added: Spaced Job
+2026-11-03 21:40:12 [INFO] Backup successful: Spaced Job | Version: 20261103_214012_687
+2026-11-03 21:40:12 [INFO] Restore successful: Spaced Job | Version: 20261103_214012_687 | Destination: C:\Users\simli\AppData\Local\Temp\autovault-tests-1793734803278\special folder\restored
+2026-11-03 21:40:12 [WARN] Backup requested for unknown job: no-such-job
+2026-11-03 21:40:12 [WARN] Versions requested for unknown job: no-such-job
+2026-11-03 21:40:12 [INFO] Backup job added: EdgeJob
+2026-11-03 21:40:12 [INFO] Backup successful: EdgeJob | Version: 20261103_214012_738
+2026-11-03 21:40:12 [WARN] Restore failed: version not found: no-such-version
+2026-11-03 21:40:12 [INFO] Backup job added: Vanishing
+2026-11-03 21:40:12 [ERROR] Backup failed for job: Vanishing (Source folder does not exist: C:\Users\simli\AppData\Local\Temp\autovault-tests-1793734803278\vanishing\source)
+2026-11-03 21:40:12 [INFO] Backup job added: Empty
+2026-11-03 21:40:12 [INFO] Backup successful: Empty | Version: 20261103_214012_765
+2026-11-03 21:40:12 [INFO] Backup job added: NoChange
+2026-11-03 21:40:12 [INFO] Backup successful: NoChange | Version: 20261103_214012_777
+2026-11-03 21:40:13 [INFO] Backup skipped for NoChange: no changes detected
+2026-11-03 21:40:13 [INFO] Restore successful: EdgeJob | Version: 20261103_214012_738 | Destination: C:\Users\simli\AppData\Local\Temp\autovault-tests-1793734803278\edge\new\folders\that\do\not\exist
+2026-11-03 21:40:13 [INFO] Backup job removed: EdgeJob
+2026-11-03 21:40:13 [WARN] Backup requested for unknown job: c73892b1-3cfa-4af9-9950-463df4ed7288
+2026-11-03 21:41:08 [INFO] Backup skipped for TestJob: no changes detected
+2026-11-03 21:41:08 [INFO] Backup skipped for testauto: no changes detected
+2026-11-03 21:42:08 [INFO] Backup skipped for TestJob: no changes detected
+2026-11-03 21:42:08 [INFO] Backup skipped for testauto: no changes detected
+2026-11-03 21:43:08 [INFO] Backup skipped for TestJob: no changes detected
+2026-11-03 21:43:08 [INFO] Backup skipped for testauto: no changes detected
+2026-11-03 21:44:08 [INFO] Backup skipped for TestJob: no changes detected
+2026-11-03 21:44:08 [INFO] Backup skipped for testauto: no changes detected
+2026-11-03 21:45:08 [INFO] Backup skipped for TestJob: no changes detected
+2026-11-03 21:45:09 [INFO] Backup skipped for testauto: no changes detected
+2026-11-03 21:46:09 [INFO] Backup skipped for TestJob: no changes detected
+2026-11-03 21:46:09 [INFO] Backup skipped for testauto: no changes detected
+2026-11-03 21:47:09 [INFO] Backup skipped for TestJob: no changes detected
+2026-11-03 21:47:09 [INFO] Backup skipped for testauto: no changes detected
+2026-11-03 21:48:07 [INFO] AutoVault prototype started
+2026-11-03 21:48:07 [INFO] Dashboard opened
+2026-11-03 21:48:09 [INFO] Backup skipped for TestJob: no changes detected
+2026-11-03 21:48:09 [INFO] Backup skipped for testauto: no changes detected
+2026-11-03 22:23:54 [INFO] AutoVault prototype started
+2026-11-03 22:23:54 [INFO] Dashboard opened
+2026-11-03 22:24:20 [INFO] Saved backup jobs loaded successfully
+2026-11-03 22:24:20 [INFO] Automatic backup started: TestJob | Interval: 1 minute(s)
+2026-11-03 22:24:20 [INFO] Automatic backup started: testauto | Interval: 1 minute(s)
+2026-11-03 22:24:25 [INFO] AutoVault prototype started
+2026-11-03 22:24:25 [INFO] Dashboard opened
+2026-11-03 22:25:20 [INFO] Backup skipped for TestJob: no changes detected
+2026-11-03 22:25:20 [INFO] Backup skipped for testauto: no changes detected
+2026-11-03 22:26:20 [INFO] Backup skipped for TestJob: no changes detected
+2026-11-03 22:26:20 [INFO] Backup skipped for testauto: no changes detected
+2026-11-03 22:27:20 [INFO] Backup skipped for TestJob: no changes detected
+2026-11-03 22:27:20 [INFO] Backup skipped for testauto: no changes detected
+2026-11-03 22:28:20 [INFO] Backup skipped for TestJob: no changes detected
+2026-11-03 22:28:20 [INFO] Backup skipped for testauto: no changes detected
+2026-11-03 22:29:21 [INFO] Backup skipped for TestJob: no changes detected
+2026-11-03 22:29:21 [INFO] Backup skipped for testauto: no changes detected
+2026-11-03 22:30:21 [INFO] Backup skipped for TestJob: no changes detected
+2026-11-03 22:30:21 [INFO] Backup skipped for testauto: no changes detected
+2026-11-03 22:31:21 [INFO] Backup skipped for TestJob: no changes detected
+2026-11-03 22:31:21 [INFO] Backup skipped for testauto: no changes detected
+2026-11-03 22:32:21 [INFO] Backup skipped for TestJob: no changes detected
+2026-11-03 22:32:21 [INFO] Backup skipped for testauto: no changes detected
+2026-11-03 22:39:20 [INFO] Saved backup jobs loaded successfully
+2026-11-03 22:39:20 [INFO] Automatic backup started: TestJob | Interval: 1 minute(s)
+2026-11-03 22:39:20 [INFO] Automatic backup started: testauto | Interval: 1 minute(s)
+2026-11-03 22:40:21 [INFO] Backup skipped for TestJob: no changes detected
+2026-11-03 22:40:21 [INFO] Backup skipped for testauto: no changes detected
+2026-11-03 22:52:34 [INFO] Saved backup jobs loaded successfully
+2026-11-03 22:52:34 [INFO] Automatic backup started: TestJob | Interval: 1 minute(s)
+2026-11-03 22:52:34 [INFO] Automatic backup started: testauto | Interval: 1 minute(s)
+2026-11-03 23:21:50 [INFO] Saved backup jobs loaded successfully
+2026-11-03 23:21:50 [INFO] Automatic backup started: TestJob | Interval: 1 minute(s)
+2026-11-03 23:21:50 [INFO] Automatic backup started: testauto | Interval: 1 minute(s)
+2026-11-03 23:22:50 [INFO] Backup skipped for TestJob: no changes detected
+2026-11-03 23:22:50 [INFO] Backup successful: testauto | Version: 20261103_232250_733
+2026-11-03 23:23:40 [INFO] Backup skipped for testauto: no changes detected
+2026-11-03 23:23:50 [INFO] Backup skipped for TestJob: no changes detected
+2026-11-03 23:23:50 [INFO] Backup skipped for testauto: no changes detected
+2026-11-03 23:24:50 [INFO] Backup skipped for TestJob: no changes detected
+2026-11-03 23:24:50 [INFO] Backup skipped for testauto: no changes detected
+2026-11-03 23:25:08 [INFO] Restore successful: testauto | Version: 20261103_212803_765 | Destination: C:\Users\simli\OneDrive\Desktop\New folder
+2026-11-03 23:25:51 [INFO] Backup skipped for TestJob: no changes detected
+2026-11-03 23:25:51 [INFO] Backup skipped for testauto: no changes detected
+2026-11-03 23:26:16 [INFO] AutoVault prototype started
+2026-11-03 23:26:16 [INFO] Dashboard opened
+2026-11-03 23:26:19 [INFO] Activity logs viewed
+2026-11-03 23:26:51 [INFO] Backup skipped for TestJob: no changes detected
+2026-11-03 23:26:51 [INFO] Backup skipped for testauto: no changes detected
+2026-11-03 23:27:34 [INFO] Backup job added: TestJob
+2026-11-03 23:27:35 [INFO] Backup successful: TestJob | Version: 20261103_232735_045
+2026-11-03 23:27:36 [INFO] Backup successful: TestJob | Version: 20261103_232736_180
+2026-11-03 23:27:36 [INFO] Restore successful: TestJob | Version: 20261103_232735_045 | Destination: C:\Users\simli\AppData\Local\Temp\autovault-tests-1793741254829\normal\restored
+2026-11-03 23:27:37 [INFO] Backup successful: TestJob | Version: 20261103_232737_310
+2026-11-03 23:27:38 [INFO] Backup successful: TestJob | Version: 20261103_232738_437
+2026-11-03 23:27:39 [INFO] Backup successful: TestJob | Version: 20261103_232739_564
+2026-11-03 23:27:40 [INFO] Backup successful: TestJob | Version: 20261103_232740_707
+2026-11-03 23:27:40 [INFO] Retention removed 1 old version(s) for TestJob
+2026-11-03 23:27:41 [INFO] Backup successful: TestJob | Version: 20261103_232741_852
+2026-11-03 23:27:41 [INFO] Retention removed 1 old version(s) for TestJob
+2026-11-03 23:27:42 [INFO] Backup successful: TestJob | Version: 20261103_232742_980
+2026-11-03 23:27:42 [INFO] Retention removed 1 old version(s) for TestJob
+2026-11-03 23:27:43 [INFO] Saved backup jobs loaded successfully
+2026-11-03 23:27:44 [INFO] Backup successful: TestJob | Version: 20261103_232744_135
+2026-11-03 23:27:44 [INFO] Retention removed 1 old version(s) for TestJob
+2026-11-03 23:27:44 [INFO] Backup job added: Spaced Job
+2026-11-03 23:27:44 [INFO] Backup successful: Spaced Job | Version: 20261103_232744_160
+2026-11-03 23:27:44 [INFO] Restore successful: Spaced Job | Version: 20261103_232744_160 | Destination: C:\Users\simli\AppData\Local\Temp\autovault-tests-1793741254829\special folder\restored
+2026-11-03 23:27:44 [WARN] Unknown backup job: no-such-job
+2026-11-03 23:27:44 [WARN] Versions requested for unknown job: no-such-job
+2026-11-03 23:27:44 [INFO] Backup job added: EdgeJob
+2026-11-03 23:27:44 [INFO] Backup successful: EdgeJob | Version: 20261103_232744_198
+2026-11-03 23:27:44 [WARN] Restore failed: version not found: no-such-version
+2026-11-03 23:27:44 [INFO] Backup job added: Vanishing
+2026-11-03 23:27:44 [ERROR] Backup failed for job: Vanishing (Source folder does not exist: C:\Users\simli\AppData\Local\Temp\autovault-tests-1793741254829\vanishing\source)
+2026-11-03 23:27:44 [INFO] Backup job added: Empty
+2026-11-03 23:27:44 [INFO] Backup successful: Empty | Version: 20261103_232744_222
+2026-11-03 23:27:44 [INFO] Backup job added: NoChange
+2026-11-03 23:27:44 [INFO] Backup successful: NoChange | Version: 20261103_232744_237
+2026-11-03 23:27:45 [INFO] Backup skipped for NoChange: no changes detected
+2026-11-03 23:27:45 [INFO] Restore successful: EdgeJob | Version: 20261103_232744_198 | Destination: C:\Users\simli\AppData\Local\Temp\autovault-tests-1793741254829\edge\new\folders\that\do\not\exist
+2026-11-03 23:27:45 [INFO] Backup job removed: EdgeJob
+2026-11-03 23:27:45 [WARN] Unknown backup job: 9d9d3584-8b20-4963-a096-e15becccbba7
+2026-11-03 23:27:51 [INFO] Backup skipped for TestJob: no changes detected
+2026-11-03 23:27:51 [INFO] Backup skipped for testauto: no changes detected
+2026-11-03 23:28:51 [INFO] Backup skipped for TestJob: no changes detected
+2026-11-03 23:28:51 [INFO] Backup skipped for testauto: no changes detected
+2026-11-03 23:29:51 [INFO] Backup skipped for TestJob: no changes detected
+2026-11-03 23:29:51 [INFO] Backup skipped for testauto: no changes detected
+2026-11-03 23:30:51 [INFO] Backup skipped for TestJob: no changes detected
+2026-11-03 23:30:51 [INFO] Backup skipped for testauto: no changes detected
+2026-11-03 23:31:52 [INFO] Backup skipped for TestJob: no changes detected
+2026-11-03 23:31:52 [INFO] Backup skipped for testauto: no changes detected
+2026-11-03 23:32:52 [INFO] Backup skipped for TestJob: no changes detected
+2026-11-03 23:32:52 [INFO] Backup skipped for testauto: no changes detected
+2026-11-05 20:19:44 [INFO] Saved backup jobs loaded successfully
+2026-11-05 20:19:44 [INFO] Automatic backup started: TestJob | Interval: 1 minute(s)
+2026-11-05 20:19:44 [INFO] Automatic backup started: testauto | Interval: 1 minute(s)
+2026-11-05 22:20:15 [INFO] Saved backup jobs loaded successfully
+2026-11-05 22:20:15 [INFO] Automatic backup started: TestJob | Interval: 1 minute(s)
+2026-11-05 22:20:15 [INFO] Automatic backup started: testauto | Interval: 1 minute(s)
+2026-11-05 22:20:21 [INFO] AutoVault prototype started
+2026-11-05 22:20:21 [INFO] Dashboard opened
+2026-11-05 22:21:15 [INFO] Backup skipped for TestJob: no changes detected
+2026-11-05 22:21:15 [INFO] Backup skipped for testauto: no changes detected
+2026-11-06 00:39:54 [INFO] Backup job added: TestJob
+2026-11-06 00:39:54 [INFO] Backup successful: TestJob | Version: 20261106_003954_247
+2026-11-06 00:39:55 [INFO] Backup successful: TestJob | Version: 20261106_003955_382
+2026-11-06 00:39:55 [INFO] Restore successful: TestJob | Version: 20261106_003954_247 | Destination: C:\Users\simli\AppData\Local\Temp\autovault-tests-1793918393939\normal\restored
+2026-11-06 00:39:56 [INFO] Backup successful: TestJob | Version: 20261106_003956_529
+2026-11-06 00:39:57 [INFO] Backup successful: TestJob | Version: 20261106_003957_657
+2026-11-06 00:39:58 [INFO] Backup successful: TestJob | Version: 20261106_003958_785
+2026-11-06 00:39:59 [INFO] Backup successful: TestJob | Version: 20261106_003959_913
+2026-11-06 00:39:59 [INFO] Retention removed 1 old version(s) for TestJob
+2026-11-06 00:40:01 [INFO] Backup successful: TestJob | Version: 20261106_004001_051
+2026-11-06 00:40:01 [INFO] Retention removed 1 old version(s) for TestJob
+2026-11-06 00:40:02 [INFO] Backup successful: TestJob | Version: 20261106_004002_176
+2026-11-06 00:40:02 [INFO] Retention removed 1 old version(s) for TestJob
+2026-11-06 00:40:02 [INFO] Saved backup jobs loaded successfully
+2026-11-06 00:40:03 [INFO] Backup successful: TestJob | Version: 20261106_004003_361
+2026-11-06 00:40:03 [INFO] Retention removed 1 old version(s) for TestJob
+2026-11-06 00:40:03 [INFO] Backup job added: Spaced Job
+2026-11-06 00:40:03 [INFO] Backup successful: Spaced Job | Version: 20261106_004003_410
+2026-11-06 00:40:03 [INFO] Restore successful: Spaced Job | Version: 20261106_004003_410 | Destination: C:\Users\simli\AppData\Local\Temp\autovault-tests-1793918393939\special folder\restored
+2026-11-06 00:40:03 [WARN] Unknown backup job: no-such-job
+2026-11-06 00:40:03 [WARN] Versions requested for unknown job: no-such-job
+2026-11-06 00:40:03 [INFO] Backup job added: EdgeJob
+2026-11-06 00:40:03 [INFO] Backup successful: EdgeJob | Version: 20261106_004003_474
+2026-11-06 00:40:03 [WARN] Restore failed: version not found: no-such-version
+2026-11-06 00:40:03 [INFO] Backup job added: Vanishing
+2026-11-06 00:40:03 [ERROR] Backup failed for job: Vanishing (Source folder does not exist: C:\Users\simli\AppData\Local\Temp\autovault-tests-1793918393939\vanishing\source)
+2026-11-06 00:40:03 [INFO] Backup job added: Empty
+2026-11-06 00:40:03 [INFO] Backup successful: Empty | Version: 20261106_004003_518
+2026-11-06 00:40:03 [INFO] Backup job added: NoChange
+2026-11-06 00:40:03 [INFO] Backup successful: NoChange | Version: 20261106_004003_547
+2026-11-06 00:40:04 [INFO] Backup skipped for NoChange: no changes detected
+2026-11-06 00:40:04 [INFO] Restore successful: EdgeJob | Version: 20261106_004003_474 | Destination: C:\Users\simli\AppData\Local\Temp\autovault-tests-1793918393939\edge\new\folders\that\do\not\exist
+2026-11-06 00:40:04 [INFO] Backup job removed: EdgeJob
+2026-11-06 00:40:04 [WARN] Unknown backup job: 66b6311d-55ae-4109-a822-714b316cc8c1

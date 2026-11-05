@@ -1,0 +1,59 @@
+=== AutoVault Test Run ===
+
+--- Normal input ---
+PASS  N1  Add a valid job
+        observed: jobs in manager: 1
+PASS  N2  First backup creates a version
+        observed: versions: 1
+PASS  N3  Backup after editing a file creates a second version
+        observed: versions: 2
+PASS  N4  Versions are listed oldest to newest
+        observed: first=20261103_232735_045, last=20261103_232736_180
+PASS  N5  Restoring the oldest version brings back the old text
+        observed: restored report.txt says: Report - first draft
+PASS  N6  Retention keeps only the newest 5 versions after 8 backups
+        observed: versions kept: 5
+PASS  N7  Deleted versions' folders are removed from the disk
+        observed: version folders on disk: 5, versions in the job: 5
+PASS  N8  Jobs and versions survive a restart (save and load)
+        observed: after reload: 1 job(s), 5 version(s)
+PASS  N9  A backup is recorded in AutoVault.log
+        observed: AutoVault.log size: 12105 bytes before, 12266 bytes after
+PASS  N10  Names with spaces and brackets are backed up and restored
+        observed: restored file found: true
+
+--- Edge input ---
+PASS  E1  Empty job name is rejected
+        observed: message: "Job name must not be empty."
+PASS  E2  Missing folder (null) is rejected
+        observed: message: "Source and destination folders are required."
+PASS  E3  Interval of 0 minutes is rejected
+        observed: message: "Interval must be at least 1 minute."
+PASS  E4  Negative interval is rejected
+        observed: message: "Interval must be at least 1 minute."
+PASS  E5  Source and destination the same folder is rejected
+        observed: message: "Source and destination must be different folders."
+PASS  E6  Destination inside the source folder is rejected
+        observed: message: "Destination cannot be inside the source folder."
+PASS  E7  Backup of an unknown job returns null without crashing
+        observed: result: null
+PASS  E8  Listing versions of an unknown job returns null without crashing
+        observed: result: null
+PASS  E9  Restoring an unknown version does not crash
+        observed: the program printed 'Version not found' and carried on
+PASS  E10  Backup when the source folder was deleted fails safely
+        observed: result: null
+PASS  E15  That failed backup is recorded in AutoVault.log
+        observed: AutoVault.log size: 13016 bytes before, 13191 bytes after
+PASS  E11  Backup of an empty folder does not crash
+        observed: result: version created
+PASS  E12  A second backup with no changes is skipped
+        observed: 1 version(s) after two backups with no edit in between
+PASS  E13  Restoring into a folder that does not exist yet works
+        observed: restored file found: true
+PASS  E14  A removed job cannot be backed up
+        observed: jobs left: 3
+
+=== SUMMARY ===
+Passed: 25
+Failed: 0
